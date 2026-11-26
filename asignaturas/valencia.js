@@ -112,6 +112,51 @@ window.ASIGNATURAS_MODULOS.valencia = {
         { es: 'Cincuenta / Cien', va: 'cinquanta / cent' },
         { es: 'Amarillo / Rojo / Azul', va: 'groc / roig / blau' }
       ]
+    },
+    animals: {
+      label: '🐾 Animals i llocs',
+      title: '🐾 Animals, sons i refugis (Els animals)',
+      practiceMode: 'vocab',
+      items: [
+        { es: 'Caballo (duerme en el establo)', va: 'el cavall (a l’estable)' },
+        { es: 'Gallina (pone huevos)', va: 'la gallina (pon ous)' },
+        { es: 'Pato (nada / pico)', va: 'l’ànec (nada / bec)' },
+        { es: 'Oveja (lana)', va: 'l’ovella (la llana)' },
+        { es: 'Conejo (conejera)', va: 'el conill (la conillera)' },
+        { es: 'Vaca (leche)', va: 'la vaca (la llet)' },
+        { es: 'Cerdo (pocilga)', va: 'el porc (la porquera)' },
+        { es: 'Avestruz (corre, no vuela)', va: 'l’estruç (corre fins a 89 km/h)' },
+        { es: 'Paloma / Burro', va: 'el colom / l’ase' },
+        { es: 'Ladrar / Maullar', va: 'lladrar / maular' }
+      ]
+    },
+    polisemia: {
+      label: '🔤 Polisèmia i g/gu',
+      title: '🔤 Paraules polisèmiques i ortografia (g / gu)',
+      practiceMode: 'vocab',
+      items: [
+        { es: 'Ala (de pájaro, avión o sombrero)', va: 'l’ala (paraula polisèmica)' },
+        { es: 'Cabeza / Cabo / Jefe', va: 'el cap (paraula polisèmica)' },
+        { es: 'Banco (asiento / entidad / peces)', va: 'el banc (paraula polisèmica)' },
+        { es: 'Punta (de lápiz / de tijeras)', va: 'la punta (paraula polisèmica)' },
+        { es: 'Tortuga (so g + a/o/u)', va: 'la tortuga' },
+        { es: 'Manga (so g + a)', va: 'la mànega' },
+        { es: 'Higo (so g + a)', va: 'la figa' },
+        { es: 'Hormiga (so g + a)', va: 'la formiga' }
+      ]
+    },
+    cultura: {
+      label: '🎆 Festes i lectura',
+      title: '🎆 Festes populars i La formiga Piga',
+      practiceMode: 'vocab',
+      items: [
+        { es: 'Hogueras de San Juan (junio)', va: 'les Fogueres de Sant Joan (juny)' },
+        { es: 'Mascletà / Fallas', va: 'la mascletà / les falles' },
+        { es: 'Horchata con fartons', va: 'l’orxata amb fartons' },
+        { es: 'Coca de atún', va: 'la coca amb tonyina' },
+        { es: 'Madriguera bajo tierra', va: 'el cau sota terra (La formiga Piga)' },
+        { es: 'Miga de pan', va: 'una molla de pa (La formiga Piga)' }
+      ]
     }
   },
 
@@ -182,7 +227,7 @@ window.ASIGNATURAS_MODULOS.valencia = {
       };
     }
 
-    const sub = randInt(1, 2);
+    const sub = randInt(1, 5);
     if (sub === 1) {
       const vocab = [
         { q: 'Com es diu "perro" en valencià?', ok: 'gos', bad: ['gat', 'ocell', 'peix'], e: '"Gos" significa perro.' },
@@ -195,6 +240,153 @@ window.ASIGNATURAS_MODULOS.valencia = {
       ];
       const v = pick(vocab);
       const opts = shuffle([v.ok, v.bad[0], v.bad[1], v.bad[2]]);
+      return {
+        subject: 'valencia', type: 'choice', topic: 'Vocabulari · 3r Primària',
+        q: v.q, options: opts, answer: opts.indexOf(v.ok), explanation: v.e
+      };
+    } else if (sub === 2) {
+      const ortho = [
+        { ok: 'col·legi', bad: ['colegi', 'col-legi', 'collegi'], e: '"Col·legi" s’escriu amb ela geminada (l·l).' },
+        { ok: 'plaça', bad: ['plasa', 'plaza', 'plassa'], e: 'Davant de a, o, u s’escriu ç: plaça.' },
+        { ok: 'muntanya', bad: ['montaña', 'muntana', 'muntanyia'], e: 'El so /ñ/ en valencià s’escriu ny: muntanya.' },
+        { ok: 'beure (aigua)', bad: ['veure (aigua)', 'beber', 'vebre'], e: 'Prendre líquid és "beure" amb b; mirar és "veure" amb v.' },
+        { ok: 'xicotet', bad: ['chicotet', 'xicotett', 'sicotet'], e: 'En valencià s’escriu amb x inicial: xicotet.' },
+        { ok: 'taronges', bad: ['taronjes', 'tarongues', 'taronxes'], e: 'Davant de e, i s’escriu g: taronja → taronges.' },
+        { ok: 'tortuga', bad: ['tortuga', 'tortuga', 'tortuga'], e: 'Davant de a, o, u s’escriu "g": tortuga.' },
+        { ok: 'mànega', bad: ['mànuega', 'màneja', 'mànega'], e: 'Davant de a s’escriu "g" per al so de gol: mànega.' }
+      ];
+      const orthoClean = [
+        { ok: 'col·legi', bad: ['colegi', 'col-legi', 'collegi'], e: '"Col·legi" s’escriu amb ela geminada (l·l).' },
+        { ok: 'plaça', bad: ['plasa', 'plaza', 'plassa'], e: 'Davant de a, o, u s’escriu ç: plaça.' },
+        { ok: 'muntanya', bad: ['montaña', 'muntana', 'muntanyia'], e: 'El so /ñ/ en valencià s’escriu ny: muntanya.' },
+        { ok: 'beure (aigua)', bad: ['veure (aigua)', 'beber', 'vebre'], e: 'Prendre líquid és "beure" amb b; mirar és "veure" amb v.' },
+        { ok: 'xicotet', bad: ['chicotet', 'xicotett', 'sicotet'], e: 'En valencià s’escriu amb x inicial: xicotet.' },
+        { ok: 'taronges', bad: ['taronjes', 'tarongues', 'taronxes'], e: 'Davant de e, i s’escriu g: taronja → taronges.' },
+        { ok: 'tortuga', bad: ['tortuguua', 'tortuja', 'tortugue'], e: 'Davant de a, o, u s’escriu "g": tortuga.' },
+        { ok: 'mànega', bad: ['mànuega', 'màneja', 'mànegue'], e: 'Davant de a s’escriu "g" per al so de gol: mànega.' }
+      ];
+      const o = pick(orthoClean);
+      const opts = shuffle([o.ok, o.bad[0], o.bad[1], o.bad[2]]);
+      return {
+        subject: 'valencia', type: 'choice', topic: 'Ortografia valenciana',
+        q: 'Quina paraula està ben escrita en valencià?',
+        options: opts, answer: opts.indexOf(o.ok), explanation: o.e
+      };
+    } else if (sub === 3) {
+      const polisemia = [
+        {
+          q: 'Quina paraula pot significar tant l’extremitat d’un ocell com la part d’un avió?',
+          ok: 'ala',
+          bad: ['cap', 'banc', 'punta'],
+          e: '"Ala" és polisèmica: pot ser l’ala d’un ocell/avió o l’ala d’un barret.'
+        },
+        {
+          q: 'En "La senyora que seu al banc dóna pa sec als coloms", què significa "banc"?',
+          ok: 'Seient per a seure',
+          bad: ['Lloc on es guarda diners', 'Un conjunt de peixos', 'Una eina de cuina'],
+          e: 'En aquesta frase "banc" és el seient on s’asseu la gent.'
+        },
+        {
+          q: 'Què vol dir que una paraula és "polisèmica"?',
+          ok: 'Que té més d’un significat',
+          bad: ['Que sempre és un animal', 'Que no té vocals', 'Que és un verb'],
+          e: 'Una paraula és polisèmica quan té més d’un significat (com "ala", "cap" o "banc").'
+        },
+        {
+          q: 'A quina endevinalla correspon: "La meva feina és rosegar, formatge m’agrada menjar"?',
+          ok: 'El ratolí',
+          bad: ['El ninot de neu', 'El bolet', 'Les tisores'],
+          e: 'El ratolí rosega i li agrada el formatge; si hi ha un gat a prop, s’espanta.'
+        },
+        {
+          q: 'A quina endevinalla correspon: "Sóc un senyor gros i rodó, fresc com un cotó. Sempre em desfà l’escalfor"?',
+          ok: 'El ninot de neu',
+          bad: ['El bolet', 'El ratolí', 'Les tisores'],
+          e: 'El ninot de neu està fet de neu i es desfà amb l’escalfor.'
+        }
+      ];
+      const p = pick(polisemia);
+      const opts = shuffle([p.ok, p.bad[0], p.bad[1], p.bad[2]]);
+      return {
+        subject: 'valencia', type: 'choice', topic: 'Polisèmia i endevinalles',
+        q: p.q, options: opts, answer: opts.indexOf(p.ok), explanation: p.e
+      };
+    } else if (sub === 4) {
+      const animals = [
+        {
+          q: 'On dorm el cavall?',
+          ok: 'A l’estable',
+          bad: ['A la porquera', 'A la conillera', 'Al niu'],
+          e: 'El cavall dorm a l’estable; el porc a la porquera i el conill a la conillera.'
+        },
+        {
+          q: 'Quin animal té plomes, no pot volar i pot córrer fins als 89 km/h?',
+          ok: 'L’estruç',
+          bad: ['La gallina', 'L’ànec', 'El colom'],
+          e: 'L’estruç és una au que no pot volar però pot córrer molt de pressa.'
+        },
+        {
+          q: 'Quin animal ens proporciona llana per a fer roba?',
+          ok: 'L’ovella',
+          bad: ['El porc', 'L’ànec', 'El cavall'],
+          e: 'Amb la llana de l’ovella es pot fer molta roba.'
+        },
+        {
+          q: 'Com es diu el so que fa el gat?',
+          ok: 'Maular',
+          bad: ['Lladrar', 'Cantar', 'Piular'],
+          e: 'El gat fa "mèu" i l’acció és maular; el gos fa "bup" i lladra.'
+        }
+      ];
+      const a = pick(animals);
+      const opts = shuffle([a.ok, a.bad[0], a.bad[1], a.bad[2]]);
+      return {
+        subject: 'valencia', type: 'choice', topic: 'Animals i refugis',
+        q: a.q, options: opts, answer: opts.indexOf(a.ok), explanation: a.e
+      };
+    } else {
+      const lectura = [
+        {
+          q: 'On vivia la formiga Piga de la lectura?',
+          ok: 'En un cau sota terra',
+          bad: ['Dalt d’un arbre', 'Dins d’un riu', 'En un niu'],
+          e: 'La formiga Piga vivia al bosc, en un cau sota terra.'
+        },
+        {
+          q: 'Què va olorar la formiga Piga al bosc?',
+          ok: 'Una gran molla de pa',
+          bad: ['Una flor vermella', 'Un tros de formatge', 'Una poma madura'],
+          e: 'Va olorar una gran molla de pa que pesava tant que la va portar amb la seua amiga.'
+        },
+        {
+          q: 'Qui va ajudar la formiga Piga a portar la molla de pa al cau?',
+          ok: 'La seua amiga',
+          bad: ['El seu germà', 'Un ocell del bosc', 'La seua mare'],
+          e: 'Darrere seu venia la seua amiga i totes dues van poder dur la molla de pa al cau.'
+        },
+        {
+          q: 'En quin mes se celebren les Fogueres de Sant Joan?',
+          ok: 'Al juny',
+          bad: ['A l’abril', 'A l’octubre', 'Al gener'],
+          e: 'Les Fogueres de Sant Joan se celebren al mes de juny.'
+        },
+        {
+          q: 'Què es menja tradicionalment amb l’orxata?',
+          ok: 'Els fartons',
+          bad: ['Les castanyes', 'Els bunyols de vent', 'Les pomes'],
+          e: 'L’orxata se sol prendre ben fresca acompanyada de fartons.'
+        }
+      ];
+      const l = pick(lectura);
+      const opts = shuffle([l.ok, l.bad[0], l.bad[1], l.bad[2]]);
+      return {
+        subject: 'valencia', type: 'choice', topic: 'Comprensió i festes',
+        q: l.q, options: opts, answer: opts.indexOf(l.ok), explanation: l.e
+      };
+    }
+  }
+};
+ const opts = shuffle([v.ok, v.bad[0], v.bad[1], v.bad[2]]);
       return {
         subject: 'valencia', type: 'choice', topic: 'Vocabulari · 3r Primària',
         q: v.q, options: opts, answer: opts.indexOf(v.ok), explanation: v.e
