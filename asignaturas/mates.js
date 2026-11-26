@@ -1,6 +1,6 @@
 /* =========================================================================
    ASIGNATURA: MATES (asignaturas/mates.js)
-   - Aquí puedes añadir divisiones, nuevas operaciones o más fichas de repaso.
+   - Módulo de 3º de Primaria: cálculo, tablas, geometría, medidas y problemas.
    ========================================================================= */
 window.ASIGNATURAS_MODULOS.mates = {
   id: 'mates',
@@ -9,28 +9,13 @@ window.ASIGNATURAS_MODULOS.mates = {
   desc: 'Cálculo, tablas y problemas',
   bg: 'bg-mates',
 
-  videos: [
-    {
-      id: 'tYpC44N7mOo',
-      label: '✖️ Tablas del 2 al 9',
-      title: 'Tablas de multiplicar del 2 al 9',
-      blockKey: 'dobles'
-    },
-    {
-      id: 'LC1MIdvwQEs',
-      label: '🎤 Rap de las tablas',
-      title: 'Rap de las tablas de multiplicar'
-    }
-  ],
-
   // Fichas de repaso con botón Ocultar/Ver
-  studyTitle: '🧮 Repaso de Mates (Trucos, Dobles y Medidas)',
+  studyTitle: '🧮 Repaso de Mates (Trucos, Medidas, Geometría y Números)',
   studyBlocks: {
     dobles: {
       label: '✖️ Dobles y Triples',
-      title: '✖️ Dobles (×2) y Triples (×3)',
+      title: '✖️ Dobles (×2), Triples (×3) y Mitades (÷2)',
       practiceMode: 'multiplicar',
-      videoId: 'tYpC44N7mOo',
       items: [
         { es: 'El doble de 6 (6 × 2)', va: '12' },
         { es: 'El doble de 8 (8 × 2)', va: '16' },
@@ -39,22 +24,62 @@ window.ASIGNATURAS_MODULOS.mates = {
         { es: 'El triple de 4 (4 × 3)', va: '12' },
         { es: 'El triple de 7 (7 × 3)', va: '21' },
         { es: 'El triple de 10 (10 × 3)', va: '30' },
-        { es: 'La mitad de 20 (20 ÷ 2)', va: '10' }
+        { es: 'La mitad de 20 (20 ÷ 2)', va: '10' },
+        { es: 'La mitad de 36 (36 ÷ 2)', va: '18' },
+        { es: 'La mitad de 100 (100 ÷ 2)', va: '50' }
       ]
     },
     medidas: {
       label: '📏 Medidas y Tiempo',
-      title: '📏 Unidades de medida y reloj',
+      title: '📏 Unidades de medida, reloj y dinero',
       practiceMode: 'problemas',
       items: [
         { es: '1 metro en centímetros', va: '100 cm' },
         { es: '1 kilómetro en metros', va: '1.000 m' },
         { es: '1 kilogramo en gramos', va: '1.000 g' },
-        { es: 'Medio kilo en gramos', va: '500 g' },
+        { es: 'Medio kilo (½ kg)', va: '500 g' },
+        { es: 'Un cuarto de kilo (¼ kg)', va: '250 g' },
+        { es: '1 litro en medios litros', va: '2 medios litros' },
         { es: '1 hora en minutos', va: '60 min' },
         { es: 'Media hora en minutos', va: '30 min' },
         { es: 'Un cuarto de hora', va: '15 min' },
-        { es: '1 euro en céntimos', va: '100 cént.' }
+        { es: 'Tres cuartos de hora', va: '45 min' },
+        { es: '1 euro en céntimos', va: '100 cént.' },
+        { es: '1 año en días (normal)', va: '365 días' }
+      ]
+    },
+    numeros: {
+      label: '🔢 Números y Valor',
+      title: '🔢 Unidades, decenas, centenas y romanos',
+      practiceMode: 'mixto',
+      items: [
+        { es: '1 decena (1 D)', va: '10 unidades' },
+        { es: '1 centena (1 C)', va: '100 unidades' },
+        { es: '1 unidad de millar (1 UM)', va: '1.000 unidades' },
+        { es: 'Número anterior a 1.000', va: '999' },
+        { es: 'Número posterior a 599', va: '600' },
+        { es: 'Números pares acaban en...', va: '0, 2, 4, 6 u 8' },
+        { es: 'Números impares acaban en...', va: '1, 3, 5, 7 o 9' },
+        { es: 'Número romano V', va: '5' },
+        { es: 'Número romano X', va: '10' },
+        { es: 'Número romano L', va: '50' }
+      ]
+    },
+    geometria: {
+      label: '📐 Geometría',
+      title: '📐 Polígonos, ángulos y cuerpos geométricos',
+      practiceMode: 'mixto',
+      items: [
+        { es: 'Polígono de 3 lados', va: 'Triángulo' },
+        { es: 'Polígono de 4 lados iguales', va: 'Cuadrado' },
+        { es: 'Polígono de 5 lados', va: 'Pentágono' },
+        { es: 'Polígono de 6 lados', va: 'Hexágono' },
+        { es: 'Ángulo de 90° (esquina)', va: 'Ángulo recto' },
+        { es: 'Ángulo menor que un recto', va: 'Ángulo agudo' },
+        { es: 'Ángulo mayor que un recto', va: 'Ángulo obtuso' },
+        { es: 'Cuerpo con forma de dado', va: 'Cubo' },
+        { es: 'Cuerpo con forma de balón', va: 'Esfera' },
+        { es: 'Cuerpo con forma de lata', va: 'Cilindro' }
       ]
     }
   },
@@ -63,7 +88,34 @@ window.ASIGNATURAS_MODULOS.mates = {
     const { randInt, pick, shuffle } = window.APP_UTILS;
     let mode = state.matesMode || 'suma';
     if (mode === 'mixto') {
-      mode = pick(['suma', 'resta', 'multiplicar', 'problemas']);
+      mode = pick(['suma', 'resta', 'multiplicar', 'problemas', 'conceptos']);
+    }
+
+    if (mode === 'conceptos') {
+      const qBank = [
+        { t: 'Valor posicional', q: '¿Cuántas unidades son 4 centenas y 3 decenas?', o: ['430', '403', '340', '43'], a: 0, e: '4 centenas son 400 y 3 decenas son 30: 400 + 30 = 430.' },
+        { t: 'Números pares e impares', q: '¿Cuál de estos números es IMPAR?', o: ['347', '512', '890', '644'], a: 0, e: '347 termina en 7, así que es un número impar.' },
+        { t: 'Medidas de tiempo', q: '¿Cuántos minutos son una hora y media?', o: ['90 minutos', '75 minutos', '100 minutos', '65 minutos'], a: 0, e: '1 hora (60 min) + media hora (30 min) = 90 minutos.' },
+        { t: 'Medidas de masa', q: '¿Cuántos gramos son un kilo y medio?', o: ['1.500 g', '1.050 g', '500 g', '2.000 g'], a: 0, e: '1 kg = 1.000 g y medio kilo = 500 g. En total 1.500 g.' },
+        { t: 'Geometría · Polígonos', q: '¿Cuántos lados tiene un hexágono?', o: ['6 lados', '5 lados', '8 lados', '4 lados'], a: 0, e: 'Un hexágono es un polígono de 6 lados y 6 vértices.' },
+        { t: 'Geometría · Ángulos', q: '¿Cómo se llama el ángulo que mide menos que un ángulo recto?', o: ['Ángulo agudo', 'Ángulo obtuso', 'Ángulo llano', 'Ángulo completo'], a: 0, e: 'Los ángulos menores de 90° (más cerrados que el recto) se llaman agudos.' },
+        { t: 'Números romanos', q: '¿Qué número representa XIV en números romanos?', o: ['14', '16', '15', '19'], a: 0, e: 'X (10) + IV (4) = 14.' },
+        { t: 'Cálculo mental · Mitad', q: '¿Cuál es la mitad de 48?', o: ['24', '22', '26', '96'], a: 0, e: 'La mitad de 40 es 20 y la mitad de 8 es 4: 20 + 4 = 24.' },
+        { t: 'Dinero · Euros', q: 'Si tienes 3 monedas de 50 céntimos, ¿cuánto dinero tienes?', o: ['1 euro y 50 céntimos', '1 euro', '2 euros', '50 céntimos'], a: 0, e: '50 + 50 + 50 = 150 céntimos, que es 1 euro y 50 céntimos.' },
+        { t: 'División exacta · Reparto', q: 'Si repartes 24 caramelos en partes iguales entre 4 amigos, ¿cuántos tocan a cada uno?', o: ['6 caramelos', '5 caramelos', '8 caramelos', '4 caramelos'], a: 0, e: '24 ÷ 4 = 6, porque 4 × 6 = 24.' }
+      ];
+      const item = pick(qBank);
+      const correctText = item.o[item.a];
+      const opts = shuffle(item.o);
+      return {
+        subject: 'mates',
+        type: 'choice',
+        topic: item.t,
+        q: item.q,
+        options: opts,
+        answer: opts.indexOf(correctText),
+        explanation: item.e
+      };
     }
 
     if (mode === 'problemas') {
@@ -72,7 +124,7 @@ window.ASIGNATURAS_MODULOS.mates = {
       let n2 = pick(names);
       while (n2 === n1) n2 = pick(names);
 
-      const type = randInt(1, 4);
+      const type = randInt(1, 5);
       if (type === 1) {
         const cajas = randInt(3, 9);
         const porCaja = randInt(4, 9);
@@ -122,7 +174,7 @@ window.ASIGNATURAS_MODULOS.mates = {
           answer: opts.indexOf(queda + ' euros'),
           explanation: 'Restamos ' + tenia + ' − ' + gasto + ' = ' + queda + ' euros.'
         };
-      } else {
+      } else if (type === 4) {
         const base = randInt(6, 15);
         const mult = pick([2, 3]);
         const label = mult === 2 ? 'el doble' : 'el triple';
@@ -138,6 +190,22 @@ window.ASIGNATURAS_MODULOS.mates = {
           options: opts,
           answer: opts.indexOf(res + ' canicas'),
           explanation: (mult === 2 ? 'El doble' : 'El triple') + ' de ' + base + ' es ' + base + ' × ' + mult + ' = ' + res + ' canicas.'
+        };
+      } else {
+        const amigos = randInt(3, 6);
+        const cadaUno = randInt(4, 9);
+        const total = amigos * cadaUno;
+        const opts = shuffle([cadaUno + ' lápices', (cadaUno + 2) + ' lápices', (total - amigos) + ' lápices', Math.max(2, cadaUno - 1) + ' lápices']);
+        return {
+          subject: 'mates',
+          type: 'choice',
+          topic: 'Problema · Reparto (División)',
+          storyTitle: '🧩 Material de clase',
+          story: 'La profe reparte ' + total + ' lápices en partes iguales entre ' + amigos + ' equipos.',
+          q: '¿Cuántos lápices recibe cada equipo?',
+          options: opts,
+          answer: opts.indexOf(cadaUno + ' lápices'),
+          explanation: 'Repartimos ' + total + ' ÷ ' + amigos + ' = ' + cadaUno + ' lápices por equipo.'
         };
       }
     }
