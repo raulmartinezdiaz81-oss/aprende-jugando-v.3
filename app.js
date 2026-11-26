@@ -626,6 +626,55 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  function renderSubjectVideos(modulo, activeBlockKey) {
+    let box = document.getElementById('subject-video-box');
+    if (!box) {
+      const studyCard = document.getElementById('valencia-study-card');
+      if (!studyCard) return;
+      box = document.createElement('div');
+      box.id = 'subject-video-box';
+      box.style.cssText = 'margin-top:8px; padding-top:12px; border-top:1px dashed #bbf7d0; display:none; flex-direction:column; gap:10px;';
+      studyCard.appendChild(box);
+    }
+
+    const videos = (modulo && Array.isArray(modulo.videos)) ? modulo.videos : [];
+    if (!videos.length) {
+      box.style.display = 'none';
+      box.innerHTML = '';
+      return;
+    }
+
+    const block = (modulo.studyBlocks && activeBlockKey) ? modulo.studyBlocks[activeBlockKey] : null;
+    const initialVideo = videos.find(function (v) { return v.id === (block && block.videoId); }) || videos[0];
+
+    box.style.display = 'flex';
+    box.innerHTML =
+      '<div style="font-size:0.94rem; font-weight:900; color:#15803d;">🎵 Cançons per a repassar</div>' +
+      '<div style="display:flex; gap:8px; flex-wrap:wrap;" id="subject-video-btns">' +
+        videos.map(function (v) {
+          const activeClass = v.id === initialVideo.id ? ' active-green' : '';
+          return '<button type="button" class="mode-btn' + activeClass + '" data-video-id="' + v.id + '">' + v.label + '</button>';
+        }).join('') +
+      '</div>' +
+      '<div style="position:relative; width:100%; padding-top:56.25%; border-radius:16px; overflow:hidden; background:#0f172a;">' +
+        '<iframe id="subject-yt-player" src="https://www.youtube.com/embed/' + initialVideo.id + '?rel=0&modestbranding=1&playsinline=1" title="' + (initialVideo.title || 'Vídeo educatiu') + '" style="position:absolute; inset:0; width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' +
+      '</div>';
+
+    box.querySelectorAll('#subject-video-btns .mode-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const vid = btn.getAttribute('data-video-id');
+        const iframe = document.getElementById('subject-yt-player');
+        if (iframe && vid) {
+          iframe.src = 'https://www.youtube.com/embed/' + vid + '?rel=0&modestbranding=1&playsinline=1';
+        }
+        box.querySelectorAll('#subject-video-btns .mode-btn').forEach(function (b) {
+          b.classList.remove('active-green');
+        });
+        btn.classList.add('active-green');
+      });
+    });
+  }
+
   function renderSubjectStudyView() {
     const targetSubj = state.studySubjectId || 'valencia';
     const mod = MODULES[targetSubj];
@@ -679,6 +728,8 @@ document.addEventListener('DOMContentLoaded', function () {
         renderSubjectStudyView();
       });
     });
+
+    renderSubjectVideos(mod, state.valenciaStudyCat);
   }
 
   function updateMatesToolbarUI() {
@@ -998,3 +1049,6 @@ document.addEventListener('DOMContentLoaded', function () {
   bindEvents();
   openWelcomeIfNeeded();
 });
+```[cite: 4]
+
+Sube este `app.js` y el `asignaturas/valencia.js` con el array `videos` a GitHub, espera a que actualice la web y entra en el repaso de **Valencià** para comprobar que aparecen los dos botones de canciones y el reproductor debajo. ¿Te carga bien el vídeo al abrirlo?
