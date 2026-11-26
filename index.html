@@ -429,10 +429,11 @@
   <div class="toast" id="toast">Mensaje</div>
 
   <!-- ===================================================================== -->
-  <!-- CARGA MODULAR DE LAS 10 ASIGNATURAS + MOTOR DE LA APP                -->
+  <!-- CARGA MODULAR DE LAS 10 ASIGNATURAS + VÍDEOS + MOTOR DE LA APP       -->
   <!-- ===================================================================== -->
   <script>
     window.ASIGNATURAS_MODULOS = {};
+    window.VIDEOS_EDUCATIVOS = {};
     window.APP_UTILS = {
       randInt: function (min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -453,6 +454,7 @@
     };
   </script>
 
+  <script src="videos.js"></script>
   <script src="asignaturas/mates.js"></script>
   <script src="asignaturas/lengua.js"></script>
   <script src="asignaturas/valencia.js"></script>
@@ -467,5 +469,10 @@
 
   <script>
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('sw.js').catch(function () {});
+      });
+    }
+  </script>
+</body>
+</html>
