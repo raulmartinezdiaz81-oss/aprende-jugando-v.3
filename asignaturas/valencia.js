@@ -1,6 +1,7 @@
 /* =========================================================================
    ASIGNATURA: VALENCIÀ (asignaturas/valencia.js)
-   - Incluye todos los bloques de Repaso (Castellano ↔ Valencià) y las preguntas.
+   - Incluye todos los bloques de Repaso (Castellano ↔ Valencià),
+     canciones de apoyo y las preguntas.
    ========================================================================= */
 window.ASIGNATURAS_MODULOS.valencia = {
   id: 'valencia',
@@ -9,12 +10,28 @@ window.ASIGNATURAS_MODULOS.valencia = {
   desc: 'Días, meses, repaso y test',
   bg: 'bg-valencia',
 
+  videos: [
+    {
+      id: 'duWaCE8-gVc',
+      label: '📅 Dies de la setmana',
+      title: 'Cançó dels dies de la setmana en valencià',
+      blockKey: 'dias'
+    },
+    {
+      id: 'gglETdwHdkw',
+      label: "🗓️ Mesos de l'any",
+      title: "Cançó dels mesos de l'any en valencià",
+      blockKey: 'meses'
+    }
+  ],
+
   studyTitle: '🍊 Repaso de Valencià (Castellano ↔ Valencià)',
   studyBlocks: {
     dias: {
       label: '📅 Días semana',
       title: '📅 Días de la semana (Els dies de la setmana)',
       practiceMode: 'dias',
+      videoId: 'duWaCE8-gVc',
       items: [
         { es: 'Lunes', va: 'dilluns' },
         { es: 'Martes', va: 'dimarts' },
@@ -32,6 +49,7 @@ window.ASIGNATURAS_MODULOS.valencia = {
       label: '🗓️ Meses del año',
       title: "🗓️ Meses del año (Els mesos de l'any)",
       practiceMode: 'meses',
+      videoId: 'gglETdwHdkw',
       items: [
         { es: 'Enero', va: 'gener' },
         { es: 'Febrero', va: 'febrer' },
