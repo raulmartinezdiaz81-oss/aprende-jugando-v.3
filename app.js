@@ -1679,7 +1679,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (id === 'ordena_frase') {
       const sents = [
         { words: ['El', 'sol', 'sale', 'por', 'la', 'mañana.'], subj: 'lengua' },
-        { words: ['Nosaltres', 'anem', 'a', 'l'escola.'], subj: 'valencia' },
+        { words: ['Nosaltres', 'anem', 'a', "l'escola."], subj: 'valencia' },
         { words: ['La', 'Tierra', 'gira', 'alrededor', 'del', 'Sol.'], subj: 'cmedio' }
       ];
       const s = sents[(ENGINE.round - 1) % sents.length];
