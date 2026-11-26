@@ -111,6 +111,28 @@
             <p class="hero-desc">Estudia en castellano y valenciano con opción de ocultar resultados igual que en las tablas.</p>
           </div>
         </button>
+
+        <button type="button" class="hero-mode-card" id="card-quick-videos" style="background: linear-gradient(135deg, #fecdd3 0%, #fda4af 100%); color: #4c0519;">
+          <div class="hero-top">
+            <div class="hero-emoji">🎬</div>
+            <span class="hero-pill">Canciones y Repaso</span>
+          </div>
+          <div>
+            <h2 class="hero-title">Vídeos Educativos</h2>
+            <p class="hero-desc">Aprende cantando con los vídeos organizados por asignatura.</p>
+          </div>
+        </button>
+
+        <button type="button" class="hero-mode-card" id="card-quick-games" style="background: linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 100%); color: #2e1065;">
+          <div class="hero-top">
+            <div class="hero-emoji">🎮</div>
+            <span class="hero-pill">Próximamente</span>
+          </div>
+          <div>
+            <h2 class="hero-title">Juegos Educativos</h2>
+            <p class="hero-desc">Espacio preparado para minijuegos interactivos de repaso.</p>
+          </div>
+        </button>
       </div>
     </section>
 
@@ -354,6 +376,35 @@
         <div class="subj-progress-list" id="subj-progress-list"></div>
       </div>
     </section>
+
+    <!-- =================================================================== -->
+    <!-- VISTA 7: VÍDEOS EDUCATIVOS POR ASIGNATURA                           -->
+    <!-- =================================================================== -->
+    <section id="view-videos" class="view">
+      <div class="card" style="display:flex; flex-direction:column; gap:14px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+          <div>
+            <h2 style="margin:0; font-size:1.15rem; font-weight:900;">🎬 Vídeos Educativos</h2>
+            <p id="videos-subtitle" style="margin:2px 0 0; color:var(--muted); font-size:0.82rem; font-weight:700;">Elige un apartado por asignatura para ver sus canciones y vídeos</p>
+          </div>
+          <button type="button" class="mode-btn" id="btn-videos-back-home">🏠 Volver a Inicio</button>
+        </div>
+
+        <div id="videos-sections-grid" class="subjects-grid"></div>
+
+        <div id="videos-player-panel" style="display:none; flex-direction:column; gap:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; padding-bottom:8px; border-bottom:1px dashed #cbd5e1;">
+            <h3 id="videos-active-section-title" style="margin:0; font-size:1.05rem; font-weight:900;"></h3>
+            <button type="button" class="mode-btn" id="btn-videos-all-sections">📂 Todas las asignaturas</button>
+          </div>
+          <div id="videos-list-buttons" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
+          <div id="videos-active-caption" style="font-size:0.9rem; font-weight:800; color:#334155;"></div>
+          <div style="position:relative; width:100%; padding-top:56.25%; border-radius:16px; overflow:hidden; background:#0f172a;">
+            <iframe id="videos-main-yt-player" src="" title="Vídeo educativo" style="position:absolute; inset:0; width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 
   <!-- ===================================================================== -->
@@ -433,7 +484,7 @@
   <!-- ===================================================================== -->
   <script>
     window.ASIGNATURAS_MODULOS = {};
-    window.VIDEOS_EDUCATIVOS = {};
+    window.ASIGNATURAS_VIDEOS = {};
     window.APP_UTILS = {
       randInt: function (min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -454,7 +505,6 @@
     };
   </script>
 
-  <script src="videos.js"></script>
   <script src="asignaturas/mates.js"></script>
   <script src="asignaturas/lengua.js"></script>
   <script src="asignaturas/valencia.js"></script>
@@ -465,6 +515,7 @@
   <script src="asignaturas/plastica.js"></script>
   <script src="asignaturas/efisica.js"></script>
   <script src="asignaturas/religion.js"></script>
+  <script src="asignaturas/videos.js"></script>
   <script src="app.js"></script>
 
   <script>
