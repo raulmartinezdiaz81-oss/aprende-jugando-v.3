@@ -170,8 +170,8 @@ document.addEventListener('DOMContentLoaded', function () {
       renderSubjectsGrid();
       document.getElementById('view-subjects').classList.add('active');
     } else if (tabName === 'tables') {
-      renderTablesView();
       document.getElementById('view-tables').classList.add('active');
+      renderTablesView();
     } else if (tabName === 'points') {
       renderPointsView();
       document.getElementById('view-points').classList.add('active');
@@ -201,10 +201,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     updateSubjectStudyToolbarUI();
     updateValenciaToolbarUI();
-    renderSubjectStudyView();
 
     document.querySelectorAll('.view').forEach(function (v) { v.classList.remove('active'); });
     document.getElementById('view-play').classList.add('active');
+    renderSubjectStudyView();
   }
 
   function startRound(mode, subjectId) {
@@ -627,14 +627,20 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function renderSubjectVideos(modulo, activeBlockKey) {
-    let box = document.getElementById('subject-video-box');
+    const tablesView = document.getElementById('view-tables');
+    const isTablesActive = tablesView && tablesView.classList.contains('active');
+    const hostCard = isTablesActive
+      ? (tablesView.querySelector('.card') || tablesView)
+      : document.getElementById('valencia-study-card');
+
+    if (!hostCard) return;
+
+    let box = hostCard.querySelector('#subject-video-box');
     if (!box) {
-      const studyCard = document.getElementById('valencia-study-card');
-      if (!studyCard) return;
       box = document.createElement('div');
       box.id = 'subject-video-box';
-      box.style.cssText = 'margin-top:8px; padding-top:12px; border-top:1px dashed #bbf7d0; display:none; flex-direction:column; gap:10px;';
-      studyCard.appendChild(box);
+      box.style.cssText = 'margin-top:14px; padding-top:14px; border-top:1px dashed #cbd5e1; display:none; flex-direction:column; gap:10px;';
+      hostCard.appendChild(box);
     }
 
     const videos = (modulo && Array.isArray(modulo.videos)) ? modulo.videos : [];
@@ -646,28 +652,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const block = (modulo.studyBlocks && activeBlockKey) ? modulo.studyBlocks[activeBlockKey] : null;
     const initialVideo = videos.find(function (v) { return v.id === (block && block.videoId); }) || videos[0];
+    const sectionTitle = isTablesActive ? '🎵 Canciones para repasar las tablas' : '🎵 Cançons / Vídeos per a repassar';
 
     box.style.display = 'flex';
     box.innerHTML =
-      '<div style="font-size:0.94rem; font-weight:900; color:#15803d;">🎵 Cançons per a repassar</div>' +
-      '<div style="display:flex; gap:8px; flex-wrap:wrap;" id="subject-video-btns">' +
+      '<div style="font-size:0.95rem; font-weight:900; color:#15803d;">' + sectionTitle + '</div>' +
+      '<div style="display:flex; gap:8px; flex-wrap:wrap;" class="subject-video-btns">' +
         videos.map(function (v) {
           const activeClass = v.id === initialVideo.id ? ' active-green' : '';
           return '<button type="button" class="mode-btn' + activeClass + '" data-video-id="' + v.id + '">' + v.label + '</button>';
         }).join('') +
       '</div>' +
       '<div style="position:relative; width:100%; padding-top:56.25%; border-radius:16px; overflow:hidden; background:#0f172a;">' +
-        '<iframe id="subject-yt-player" src="https://www.youtube.com/embed/' + initialVideo.id + '?rel=0&modestbranding=1&playsinline=1" title="' + (initialVideo.title || 'Vídeo educatiu') + '" style="position:absolute; inset:0; width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' +
+        '<iframe class="subject-yt-player" src="https://www.youtube.com/embed/' + initialVideo.id + '?rel=0&modestbranding=1&playsinline=1" title="' + (initialVideo.title || 'Vídeo educativo') + '" style="position:absolute; inset:0; width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' +
       '</div>';
 
-    box.querySelectorAll('#subject-video-btns .mode-btn').forEach(function (btn) {
+    box.querySelectorAll('.subject-video-btns .mode-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         const vid = btn.getAttribute('data-video-id');
-        const iframe = document.getElementById('subject-yt-player');
+        const iframe = box.querySelector('.subject-yt-player');
         if (iframe && vid) {
           iframe.src = 'https://www.youtube.com/embed/' + vid + '?rel=0&modestbranding=1&playsinline=1';
         }
-        box.querySelectorAll('#subject-video-btns .mode-btn').forEach(function (b) {
+        box.querySelectorAll('.subject-video-btns .mode-btn').forEach(function (b) {
           b.classList.remove('active-green');
         });
         btn.classList.add('active-green');
@@ -785,6 +792,8 @@ document.addEventListener('DOMContentLoaded', function () {
         renderTablesView();
       });
     });
+
+    renderSubjectVideos(MODULES.mates, 'dobles');
   }
 
   function renderPointsView() {
