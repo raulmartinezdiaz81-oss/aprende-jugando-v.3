@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Aprende Jugando · 3º Primaria</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- CABECERA SUPERIOR -->
+    <header class="topbar">
+      <div class="user-badge">
+        <div class="user-avatar" id="header-avatar">🦁</div>
+        <div>
+          <h1 class="user-greeting" id="header-greeting">¡Hola, Campeón!</h1>
+          <p class="user-level-tag" id="header-level-tag">Nivel 1 · 3º de Primaria</p>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="points-pill" title="Puntos acumulados">
+          <span style="font-size: 1.25rem;">🏆</span>
+          <div>
+            <div class="pts-val" id="header-points">0</div>
+            <div class="pts-lbl">Puntos</div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-icon" id="btn-open-profile" title="Perfil y ajustes">
+          <span>⚙️</span>
+          <span>Perfil</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- NAVEGACIÓN DE 4 PESTAÑAS -->
+    <nav class="main-nav" role="tablist">
+      <button type="button" class="nav-btn active" data-tab="home">
+        <span>🏠</span><span>Inicio / Modos</span>
+      </button>
+      <button type="button" class="nav-btn" data-tab="subjects">
+        <span>📚</span><span>Asignaturas</span>
+      </button>
+      <button type="button" class="nav-btn" data-tab="tables">
+        <span>✖️</span><span>Tablas (1-10)</span>
+      </button>
+      <button type="button" class="nav-btn" data-tab="points">
+        <span>🏅</span><span>Mis Puntos</span>
+      </button>
+    </nav>
+
+    <!-- =================================================================== -->
+    <!-- VISTA 1: INICIO / MODOS DE JUEGO                                    -->
+    <!-- =================================================================== -->
+    <section id="view-home" class="view active">
+      <div class="modes-grid">
+        <button type="button" class="hero-mode-card mode-daily" id="card-daily-challenge">
+          <div class="hero-top">
+            <div class="hero-emoji">☀️</div>
+            <span class="hero-pill" id="daily-status-pill">¡Disponible hoy!</span>
+          </div>
+          <div>
+            <h2 class="hero-title">Reto del Día</h2>
+            <p class="hero-desc">10 preguntas variadas de todas las asignaturas. ¡Puntos dobles (+20 pts) y +100 pts de bonus!</p>
+          </div>
+        </button>
+
+        <button type="button" class="hero-mode-card mode-adventure" id="card-adventure-mode">
+          <div class="hero-top">
+            <div class="hero-emoji">🚀</div>
+            <span class="hero-pill" id="adventure-level-pill">Nivel 1</span>
+          </div>
+          <div>
+            <h2 class="hero-title">Modo Partida (Aventura)</h2>
+            <p class="hero-desc">Supera rondas mixtas, multiplica puntos por racha (×2, ×3) y sube de nivel.</p>
+          </div>
+        </button>
+
+        <button type="button" class="hero-mode-card mode-subjects-quick" id="card-quick-subjects">
+          <div class="hero-top">
+            <div class="hero-emoji">🎒</div>
+            <span class="hero-pill">10 Asignaturas</span>
+          </div>
+          <div>
+            <h2 class="hero-title">Elegir Asignatura</h2>
+            <p class="hero-desc">Mates, Lengua, Valencià, Inglés, Lectura, C. Medio, Música, Plástica, E. Física y Religión.</p>
+          </div>
+        </button>
+
+        <button type="button" class="hero-mode-card mode-tables-quick" id="card-quick-tables">
+          <div class="hero-top">
+            <div class="hero-emoji">📋</div>
+            <span class="hero-pill">Del 1 al 10</span>
+          </div>
+          <div>
+            <h2 class="hero-title">Tablas de Multiplicar</h2>
+            <p class="hero-desc">Repasa cada tabla con modo ocultar respuestas o ponte a prueba.</p>
+          </div>
+        </button>
+
+        <button type="button" class="hero-mode-card mode-valencia-quick" id="card-quick-valencia-study" style="grid-column: 1 / -1;">
+          <div class="hero-top">
+            <div class="hero-emoji">🍊</div>
+            <span class="hero-pill">Castellà ↔ Valencià · Modo Ocultar</span>
+          </div>
+          <div>
+            <h2 class="hero-title">Repaso de Valencià (Días, Meses, Estaciones y Vocabulario)</h2>
+            <p class="hero-desc">Estudia en castellano y valenciano con opción de ocultar resultados igual que en las tablas.</p>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VISTA 2: ELEGIR ASIGNATURA (LAS 10 DE 3º PRIMARIA)                  -->
+    <!-- =================================================================== -->
+    <section id="view-subjects" class="view">
+      <div class="subjects-grid" id="subjects-grid"></div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VISTA 3: ÁREA DE JUEGO / PRÁCTICA Y REPASO DE ASIGNATURAS           -->
+    <!-- =================================================================== -->
+    <section id="view-play" class="view">
+      <!-- Barra de configuración solo en Mates libre -->
+      <div class="mates-toolbar" id="mates-toolbar" style="display: none;">
+        <div class="mates-modes" id="mates-modes-grid">
+          <button type="button" class="mode-btn active" data-mmode="suma">➕ Sumas</button>
+          <button type="button" class="mode-btn" data-mmode="resta">➖ Restas</button>
+          <button type="button" class="mode-btn" data-mmode="multiplicar">✖️ Multiplicar</button>
+          <button type="button" class="mode-btn" data-mmode="mixto">🎲 Mixto Mates</button>
+          <button type="button" class="mode-btn" data-mmode="problemas">🧩 Problemas</button>
+          <button type="button" class="mode-btn" id="btn-jump-tables" style="background:#eef2ff; border-color:#a5b4fc; color:#3730a3;">📋 Ver Tablas</button>
+        </div>
+
+        <div class="table-selector-row" id="mates-table-row">
+          <span style="font-size:0.76rem; font-weight:800; color:#475569;">Elige tabla de multiplicar:</span>
+          <div class="table-pills" id="mates-table-pills"></div>
+        </div>
+      </div>
+
+      <!-- Barra de configuración cuando entras en Valencià desde Asignaturas -->
+      <div class="mates-toolbar" id="valencia-toolbar" style="display: none; background:#f7fee7; border-color:#bef264;">
+        <div class="mates-modes" id="valencia-modes-grid">
+          <button type="button" class="mode-btn active-green" data-vmode="mixto">🎲 Todo Valencià</button>
+          <button type="button" class="mode-btn" data-vmode="dias">📅 Días semana</button>
+          <button type="button" class="mode-btn" data-vmode="meses">🗓️ Meses y estaciones</button>
+          <button type="button" class="mode-btn" data-vmode="articles">🏷️ Articles i apòstrof</button>
+          <button type="button" class="mode-btn" data-vmode="vocab">🎒 Vocabulari i ortografia</button>
+          <button type="button" class="mode-btn" id="btn-jump-valencia-study" style="background:#dcfce7; border-color:#86efac; color:#14532d;">📖 Repaso (Ocultar/Ver)</button>
+        </div>
+      </div>
+
+      <!-- Barra de Repaso rápido para CUALQUIER asignatura que tenga fichas en su archivo .js -->
+      <div class="mates-toolbar" id="subject-study-toolbar" style="display: none; background:#f0fdf4; border-color:#bbf7d0;">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;">
+          <span id="subject-study-toolbar-title" style="font-size:0.86rem; font-weight:900; color:#14532d;">📚 Modo de estudio</span>
+          <div style="display:flex; gap:8px;">
+            <button type="button" class="mode-btn active-green" id="btn-mode-quiz-generic">🎮 Practicar Test</button>
+            <button type="button" class="mode-btn" id="btn-mode-study-generic" style="background:#dcfce7; border-color:#86efac; color:#14532d;">📖 Repaso (Ocultar/Ver)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TARJETA DE REPASO VISUAL (ESTILO TABLAS DE MULTIPLICAR) PARA VALENCIÀ Y OTRAS ASIGNATURAS -->
+      <div class="card" id="valencia-study-card" style="display: none;">
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+          <div>
+            <h2 id="study-card-main-title" style="margin:0; font-size:1.15rem; font-weight:900;">🍊 Repaso de Valencià (Castellano ↔ Valencià)</h2>
+            <p style="margin:2px 0 0; font-size:0.78rem; color:var(--muted); font-weight:700;">Elige un bloque para estudiar o practicar con test</p>
+          </div>
+          <button type="button" class="btn-primary" id="btn-practice-selected-valencia" style="padding:10px 14px; font-size:0.86rem; background:#15803d; box-shadow:0 4px 0 #166534;">
+            🎮 Practicar este tema
+          </button>
+        </div>
+
+        <div class="val-cats-grid" id="valencia-study-cats"></div>
+
+        <div class="hide-mode-bar valencia-bar">
+          <div>
+            <div style="font-size:0.86rem; font-weight:900; color:#14532d;">🙈 Ocultar resultados</div>
+            <div style="font-size:0.73rem; font-weight:700; color:#15803d;">Toca cada fila para descubrir la respuesta</div>
+          </div>
+          <button type="button" class="mode-btn" id="btn-toggle-hide-valencia" style="padding:8px 14px;">Activar</button>
+        </div>
+
+        <strong id="valencia-study-title" style="font-size:1.05rem; color:#15803d;">📅 Días de la semana</strong>
+        <div class="table-rows-grid" id="valencia-study-rows"></div>
+      </div>
+
+      <!-- TARJETA DE PREGUNTAS / TEST -->
+      <div class="card" id="play-quiz-card">
+        <div class="round-top">
+          <span class="round-badge" id="play-mode-badge">🧮 Mates</span>
+          <span class="streak-badge" id="play-streak-badge">🔥 Racha: 0 (×1)</span>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress-labels">
+            <span id="play-step-text">Pregunta 1 de 10</span>
+            <span id="play-pts-round">+0 pts en esta ronda</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="play-progress-fill"></div>
+          </div>
+        </div>
+
+        <div class="story-box" id="play-story-box">
+          <span class="story-title" id="play-story-title">📖 Lee con atención:</span>
+          <div id="play-story-text"></div>
+        </div>
+
+        <div class="question-box">
+          <span class="question-topic" id="play-topic">Tema</span>
+          <p class="question-text" id="play-question">Pregunta</p>
+        </div>
+
+        <div class="numeric-area" id="play-numeric-area">
+          <div class="math-equation">
+            <span id="play-math-expr">12 + 15</span>
+            <span>=</span>
+            <div class="math-answer-box empty" id="play-math-ans">?</div>
+          </div>
+
+          <div class="keypad-grid" id="play-keypad">
+            <button type="button" class="key-btn" data-key="1">1</button>
+            <button type="button" class="key-btn" data-key="2">2</button>
+            <button type="button" class="key-btn" data-key="3">3</button>
+            <button type="button" class="key-btn" data-key="4">4</button>
+            <button type="button" class="key-btn" data-key="5">5</button>
+            <button type="button" class="key-btn" data-key="6">6</button>
+            <button type="button" class="key-btn" data-key="7">7</button>
+            <button type="button" class="key-btn" data-key="8">8</button>
+            <button type="button" class="key-btn" data-key="9">9</button>
+            <button type="button" class="key-btn key-del" data-key="DEL">⌫ Borrar</button>
+            <button type="button" class="key-btn" data-key="0">0</button>
+            <button type="button" class="key-btn key-ok" data-key="OK">✔ Comprobar</button>
+          </div>
+        </div>
+
+        <div class="options-grid" id="play-options-grid"></div>
+
+        <div class="feedback-box" id="play-feedback">
+          <div class="feedback-header" id="play-feedback-title">¡Correcto!</div>
+          <div id="play-feedback-expl">Explicación</div>
+        </div>
+
+        <button type="button" class="btn-next" id="btn-play-next">
+          <span>Siguiente pregunta</span>
+          <span>➔</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VISTA 4: RESUMEN DE RONDA                                           -->
+    <!-- =================================================================== -->
+    <section id="view-summary" class="view">
+      <div class="card" style="text-align:center; align-items:center; padding:24px 18px;">
+        <div id="summary-emoji" style="font-size:4rem; line-height:1;">🏆</div>
+        <div>
+          <h2 id="summary-title" style="margin:0; font-size:1.38rem; font-weight:900;">¡Ronda completada!</h2>
+          <p id="summary-subtitle" style="margin:4px 0 0; font-size:0.88rem; color:var(--muted); font-weight:700;">Resumen</p>
+        </div>
+
+        <div class="stats-overview" style="width:100%; max-width:440px;">
+          <div class="overview-box">
+            <div class="overview-num" id="sum-correct" style="color:var(--success);">8/10</div>
+            <div class="overview-lbl">Aciertos</div>
+          </div>
+          <div class="overview-box">
+            <div class="overview-num" id="sum-points" style="color:var(--warn);">+100</div>
+            <div class="overview-lbl">Puntos ganados</div>
+          </div>
+          <div class="overview-box">
+            <div class="overview-num" id="sum-level" style="color:var(--indigo);">Nv. 1</div>
+            <div class="overview-lbl">Nivel Aventura</div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:10px; width:100%; max-width:400px;">
+          <button type="button" class="btn-primary" id="btn-sum-mistakes" style="display:none; background:#f59e0b; box-shadow:0 4px 0 #d97706;">
+            🔁 Repasar solo los fallos (<span id="sum-mistakes-count">0</span>)
+          </button>
+          <button type="button" class="btn-primary" id="btn-sum-again">
+            🚀 Jugar otra ronda
+          </button>
+          <button type="button" class="btn-secondary" id="btn-sum-home">
+            🏠 Volver al Inicio
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VISTA 5: TABLAS DE MULTIPLICAR (1 AL 10)                            -->
+    <!-- =================================================================== -->
+    <section id="view-tables" class="view">
+      <div class="card">
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+          <div>
+            <h2 style="margin:0; font-size:1.15rem; font-weight:900;">✖️ Tablas de Multiplicar (1 al 10)</h2>
+            <p style="margin:2px 0 0; font-size:0.78rem; color:var(--muted); font-weight:700;">Toca una tabla para estudiarla o practicarla</p>
+          </div>
+          <button type="button" class="btn-primary" id="btn-practice-selected-table" style="padding:10px 14px; font-size:0.86rem;">
+            🎮 Practicar esta tabla
+          </button>
+        </div>
+
+        <div class="tables-num-grid" id="tables-num-grid"></div>
+
+        <div class="hide-mode-bar">
+          <div>
+            <div style="font-size:0.86rem; font-weight:900; color:#1e1b4b;">🙈 Ocultar resultados</div>
+            <div style="font-size:0.73rem; font-weight:700; color:#4338ca;">Toca cada fila para comprobar si te la sabes</div>
+          </div>
+          <button type="button" class="mode-btn" id="btn-toggle-hide-tables" style="padding:8px 14px;">Activar</button>
+        </div>
+
+        <strong id="tables-current-title" style="font-size:1.05rem; color:var(--primary-dark);">Tabla del 2</strong>
+        <div class="table-rows-grid" id="tables-rows-grid"></div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VISTA 6: MIS PUNTOS Y MEDALLAS                                      -->
+    <!-- =================================================================== -->
+    <section id="view-points" class="view">
+      <div class="card">
+        <h2 style="margin:0; font-size:1.15rem; font-weight:900;">🏅 Progreso de <span id="pts-student-name">Campeón</span></h2>
+
+        <div class="stats-overview">
+          <div class="overview-box">
+            <div class="overview-num" id="pts-total-big" style="color:var(--warn);">0</div>
+            <div class="overview-lbl">Puntos Totales</div>
+          </div>
+          <div class="overview-box">
+            <div class="overview-num" id="pts-level-big" style="color:var(--indigo);">1</div>
+            <div class="overview-lbl">Nivel Aventura</div>
+          </div>
+          <div class="overview-box">
+            <div class="overview-num" id="pts-daily-big" style="color:var(--success);">0</div>
+            <div class="overview-lbl">Retos del Día</div>
+          </div>
+        </div>
+
+        <h3 style="margin:4px 0 0; font-size:0.98rem; font-weight:900;">🎖️ Medallas desbloqueadas</h3>
+        <div class="medals-grid" id="medals-grid"></div>
+
+        <h3 style="margin:4px 0 0; font-size:0.98rem; font-weight:900;">📊 Puntos por asignatura</h3>
+        <div class="subj-progress-list" id="subj-progress-list"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 1: BIENVENIDA INICIAL (NOMBRE DEL NIÑO Y AVATAR)                -->
+  <!-- ===================================================================== -->
+  <div class="modal-backdrop" id="modal-welcome">
+    <div class="modal-card">
+      <div style="text-align:center;">
+        <div style="font-size:3rem;">🎒✨</div>
+        <h2 style="margin:6px 0 0; font-size:1.35rem; font-weight:900;">¡Bienvenido a 3º de Primaria!</h2>
+        <p style="margin:4px 0 0; font-size:0.86rem; color:var(--muted); font-weight:700;">Escribe tu nombre y elige tu mascota para guardar tus puntos.</p>
+      </div>
+
+      <div>
+        <label style="display:block; font-size:0.8rem; font-weight:800; margin-bottom:5px;">¿Cómo te llamas?</label>
+        <input type="text" id="welcome-name-input" class="text-input" placeholder="Ej. Cruz, Hugo, Sofía..." maxlength="20" />
+      </div>
+
+      <div>
+        <label style="display:block; font-size:0.8rem; font-weight:800; margin-bottom:6px;">Elige tu avatar:</label>
+        <div class="avatar-picker" id="welcome-avatar-picker"></div>
+      </div>
+
+      <button type="button" class="btn-primary" id="btn-welcome-start">🚀 ¡Empezar a jugar!</button>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 2: PERFIL, COPIA DE SEGURIDAD Y RESTAURAR PROGRESO              -->
+  <!-- ===================================================================== -->
+  <div class="modal-backdrop" id="modal-profile">
+    <div class="modal-card">
+      <div style="display:flex; align-items:center; justify-content:space-between;">
+        <h2 style="margin:0; font-size:1.2rem; font-weight:900;">⚙️ Perfil y Memoria</h2>
+        <button type="button" class="btn-icon" id="btn-close-profile">✕</button>
+      </div>
+
+      <div>
+        <label style="display:block; font-size:0.8rem; font-weight:800; margin-bottom:5px;">Nombre del alumno/a:</label>
+        <input type="text" id="profile-name-input" class="text-input" maxlength="20" />
+      </div>
+
+      <div>
+        <label style="display:block; font-size:0.8rem; font-weight:800; margin-bottom:6px;">Avatar:</label>
+        <div class="avatar-picker" id="profile-avatar-picker"></div>
+      </div>
+
+      <button type="button" class="btn-primary" id="btn-save-profile">💾 Guardar cambios</button>
+
+      <div style="border-top:1px solid var(--border); padding-top:12px; display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:0.82rem; font-weight:900;">🛡️ Código de seguridad (para no perder nunca los puntos)</div>
+        <p style="margin:0; font-size:0.74rem; color:var(--muted); font-weight:600;">Copia este código o pégalo si cambias de móvil o navegador:</p>
+        <textarea id="backup-code-area" class="backup-box"></textarea>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <button type="button" class="btn-secondary" id="btn-copy-backup">📋 Copiar código</button>
+          <button type="button" class="btn-secondary" id="btn-import-backup">📥 Cargar código</button>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid var(--border); padding-top:12px; display:flex; flex-direction:column; gap:8px;">
+        <button type="button" class="btn-danger" id="btn-reset-progress">🗑️ Restaurar progreso a cero</button>
+        <div id="reset-confirm-box" style="display:none; background:#fef2f2; border:1px solid #fecaca; border-radius:12px; padding:10px; text-align:center;">
+          <div style="font-size:0.8rem; font-weight:800; color:#991b1b; margin-bottom:8px;">¿Seguro que quieres borrar todos los puntos y empezar desde 0?</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <button type="button" class="btn-secondary" id="btn-cancel-reset">Cancelar</button>
+            <button type="button" class="btn-danger" id="btn-confirm-reset" style="background:#dc2626; color:#fff;">Sí, borrar todo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Mensaje</div>
+
+  <!-- ===================================================================== -->
+  <!-- CARGA MODULAR DE LAS 10 ASIGNATURAS + MOTOR DE LA APP                -->
+  <!-- ===================================================================== -->
+  <script>
+    window.ASIGNATURAS_MODULOS = {};
+    window.APP_UTILS = {
+      randInt: function (min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      },
+      pick: function (arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      },
+      shuffle: function (arr) {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const t = a[i];
+          a[i] = a[j];
+          a[j] = t;
+        }
+        return a;
+      }
+    };
+  </script>
+
+  <script src="asignaturas/mates.js"></script>
+  <script src="asignaturas/lengua.js"></script>
+  <script src="asignaturas/valencia.js"></script>
+  <script src="asignaturas/ingles.js"></script>
+  <script src="asignaturas/lectura.js"></script>
+  <script src="asignaturas/cmedio.js"></script>
+  <script src="asignaturas/musica.js"></script>
+  <script src="asignaturas/plastica.js"></script>
+  <script src="asignaturas/efisica.js"></script>
+  <script src="asignaturas/religion.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
