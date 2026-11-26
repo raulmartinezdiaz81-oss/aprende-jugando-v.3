@@ -229,9 +229,9 @@
       subj: 'cmedio',
       words: [
         { word: 'SOL',  cells: [0, 1, 2] },
-        { word: 'MAR',  cells: [12, 13, 14] },
-        { word: 'LUNA', cells: [24, 25, 26, 27] },
-        { word: 'RIO',  cells: [6, 12, 18] }
+        { word: 'MAR',  cells: [14, 15, 16] },
+        { word: 'LUNA', cells: [25, 26, 27, 28] },
+        { word: 'RIO',  cells: [12, 18, 24] }
       ],
       grid: [
         'S','O','L','P','A','N',
@@ -246,17 +246,17 @@
       subj: 'lengua',
       words: [
         { word: 'LIBRO', cells: [0, 1, 2, 3, 4] },
-        { word: 'LAPIZ', cells: [12, 13, 14, 15, 16] },
+        { word: 'LAPIZ', cells: [13, 14, 15, 16, 17] },
         { word: 'MESA',  cells: [24, 25, 26, 27] },
-        { word: 'HOJA',  cells: [5, 11, 17, 23] }
+        { word: 'HOJA',  cells: [30, 31, 32, 33] }
       ],
       grid: [
         'L','I','B','R','O','H',
         'C','U','E','N','T','O',
-        'A','S','L','A','P','I',
+        'A','L','A','P','I','Z',
         'Z','P','A','P','E','J',
         'M','E','S','A','L','A',
-        'F','R','A','S','E','S'
+        'H','O','J','A','E','S'
       ]
     },
     {
@@ -265,13 +265,13 @@
         { word: 'GOS',    cells: [0, 1, 2] },
         { word: 'AIGUA',  cells: [12, 13, 14, 15, 16] },
         { word: 'LLIBRE', cells: [24, 25, 26, 27, 28, 29] },
-        { word: 'SOL',    cells: [3, 9, 15] }
+        { word: 'SOL',    cells: [21, 22, 23] }
       ],
       grid: [
         'G','O','S','S','A','R',
         'T','A','U','O','L','A',
-        'P','L','A','I','G','U',
-        'A','C','A','S','A','M',
+        'A','I','G','U','A','U',
+        'A','C','A','S','O','L',
         'L','L','I','B','R','E',
         'D','I','A','M','A','R'
       ]
@@ -280,17 +280,17 @@
       subj: 'mates',
       words: [
         { word: 'SUMA',  cells: [0, 1, 2, 3] },
-        { word: 'RESTA', cells: [12, 13, 14, 15, 16] },
+        { word: 'RESTA', cells: [13, 14, 15, 16, 17] },
         { word: 'DOBLE', cells: [24, 25, 26, 27, 28] },
-        { word: 'MITAD', cells: [5, 11, 17, 23, 29] }
+        { word: 'MITAD', cells: [30, 31, 32, 33, 34] }
       ],
       grid: [
         'S','U','M','A','N','M',
         'C','A','L','C','U','I',
-        'L','O','R','E','S','T',
+        'L','R','E','S','T','A',
         'A','N','U','M','E','A',
         'D','O','B','L','E','D',
-        'T','A','B','L','A','S'
+        'M','I','T','A','D','S'
       ]
     }
   ];
@@ -603,19 +603,18 @@
       const bData = SOPA_BOARDS[(ENGINE.round - 1) % SOPA_BOARDS.length];
       let foundWords = new Set();
       let foundCells = new Set();
-      let startIdx = null;
-      let currentPreview = [];
+      let pickedCells = [];
 
       const canvas = document.getElementById('g-canvas');
       canvas.innerHTML = [
         '<div style="text-align:center;">',
-          '<p style="font-weight:900;margin:0 0 8px;">Cuadrícula 6×6 · Toca la letra inicial y luego la final (horizontal, vertical o diagonal):</p>',
+          '<p style="font-weight:900;margin:0 0 8px;">Toca las letras en orden para ir marcándolas; al completar la palabra se guarda sola:</p>',
           '<div id="sopa-targets" style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:10px;">',
             bData.words.map(function (wObj) {
               return '<span class="pill-btn" data-tword="' + wObj.word + '" style="cursor:default;font-weight:900;">' + wObj.word + '</span>';
             }).join(''),
           '</div>',
-          '<div id="sopa-status" style="min-height:28px;font-size:1rem;font-weight:800;margin-bottom:10px;color:#0f172a;">Selecciona la primera letra...</div>',
+          '<div id="sopa-status" style="min-height:30px;font-size:1.05rem;font-weight:900;margin-bottom:10px;color:#0f172a;">Marcando: <span id="sopa-live-word" style="color:#1d4ed8;">—</span></div>',
           '<div style="display:grid;grid-template-columns:repeat(6,44px);gap:6px;justify-content:center;margin-bottom:12px;">',
             bData.grid.map(function (ch, idx) {
               return (
@@ -627,8 +626,8 @@
             }).join(''),
           '</div>',
           '<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">',
-            '<button type="button" class="pill-btn" id="sopa-clear-sel">Cancelar selección</button>',
-            '<button type="button" class="pill-btn" id="sopa-reset-all">Reiniciar cuadrícula</button>',
+            '<button type="button" class="pill-btn" id="sopa-clear-sel">Borrar selección actual</button>',
+            '<button type="button" class="pill-btn" id="sopa-reset-all">Reiniciar tablero</button>',
           '</div>',
         '</div>'
       ].join('');
@@ -636,21 +635,13 @@
       const statusEl = document.getElementById('sopa-status');
       const cellBtns = Array.from(canvas.querySelectorAll('[data-scell]'));
 
-      function computeLine(a, b) {
-        const r1 = Math.floor(a / 6), c1 = a % 6;
-        const r2 = Math.floor(b / 6), c2 = b % 6;
-        const dr = r2 - r1;
-        const dc = c2 - c1;
-        const len = Math.max(Math.abs(dr), Math.abs(dc));
-        if (len === 0) return [a];
-        if (dr !== 0 && dc !== 0 && Math.abs(dr) !== Math.abs(dc)) return null;
-        const stepR = dr === 0 ? 0 : dr / Math.abs(dr);
-        const stepC = dc === 0 ? 0 : dc / Math.abs(dc);
-        const out = [];
-        for (let k = 0; k <= len; k++) {
-          out.push((r1 + stepR * k) * 6 + (c1 + stepC * k));
+      function updateStatusText(customText) {
+        const currentWord = pickedCells.map(function (i) { return bData.grid[i]; }).join('');
+        if (customText) {
+          statusEl.innerHTML = customText;
+        } else {
+          statusEl.innerHTML = 'Marcando: <span id="sopa-live-word" style="color:#1d4ed8;">' + (currentWord || '—') + '</span>';
         }
-        return out;
       }
 
       function paintGrid() {
@@ -662,7 +653,7 @@
 
           if (foundCells.has(idx)) {
             btn.classList.add('active-green');
-          } else if (currentPreview.indexOf(idx) !== -1 || startIdx === idx) {
+          } else if (pickedCells.indexOf(idx) !== -1) {
             btn.style.background = '#dbeafe';
             btn.style.color = '#1d4ed8';
             btn.style.borderColor = '#2563eb';
@@ -681,75 +672,75 @@
       cellBtns.forEach(function (btn) {
         btn.addEventListener('click', function () {
           const idx = parseInt(btn.getAttribute('data-scell'), 10);
-          if (startIdx === null) {
-            startIdx = idx;
-            currentPreview = [idx];
-            statusEl.textContent = 'Letra inicial: ' + bData.grid[idx] + ' · Toca la letra final';
-            paintGrid();
+
+          const existingPos = pickedCells.indexOf(idx);
+          if (existingPos !== -1) {
+            if (existingPos === pickedCells.length - 1) {
+              pickedCells.pop();
+              paintGrid();
+              updateStatusText();
+            }
             return;
           }
 
-          const line = computeLine(startIdx, idx);
-          startIdx = null;
+          pickedCells.push(idx);
+          paintGrid();
 
-          if (!line) {
-            currentPreview = [];
-            statusEl.textContent = 'Selecciona en línea recta (horizontal, vertical o diagonal).';
-            paintGrid();
-            return;
-          }
-
-          currentPreview = line;
-          const formed = line.map(function (i) { return bData.grid[i]; }).join('');
-          const reversed = formed.split('').reverse().join('');
-
+          const formed = pickedCells.map(function (i) { return bData.grid[i]; }).join('');
           const matchedObj = bData.words.find(function (wObj) {
-            return !foundWords.has(wObj.word) && (wObj.word === formed || wObj.word === reversed);
+            return !foundWords.has(wObj.word) && wObj.word === formed;
           });
 
           if (matchedObj) {
             foundWords.add(matchedObj.word);
-            line.forEach(function (i) { foundCells.add(i); });
-            currentPreview = [];
+            pickedCells.forEach(function (i) { foundCells.add(i); });
+            pickedCells = [];
             addPoints(10, bData.subj);
             paintGrid();
 
             if (foundWords.size === bData.words.length) {
-              statusEl.textContent = '¡Todas encontradas (' + foundWords.size + '/' + bData.words.length + ')!';
-              setMsg('¡Has completado toda la sopa de letras! (+' + (foundWords.size * 10) + ' pts en total)', true);
+              updateStatusText('<span style="color:#15803d;">¡Todas guardadas (' + foundWords.size + '/' + bData.words.length + ')!</span>');
+              setMsg('¡Has encontrado y guardado todas las palabras! (+' + (foundWords.size * 10) + ' pts)', true);
             } else {
-              statusEl.textContent = '¡Encontrada "' + matchedObj.word + '"! (' + foundWords.size + '/' + bData.words.length + ')';
+              updateStatusText('<span style="color:#15803d;">✔ Guardada "' + matchedObj.word + '" (' + foundWords.size + '/' + bData.words.length + ')</span>');
             }
-          } else {
-            statusEl.textContent = 'Formaste "' + formed + '" · Prueba otra línea';
-            paintGrid();
+            return;
+          }
+
+          const maxPendingLen = bData.words
+            .filter(function (wObj) { return !foundWords.has(wObj.word); })
+            .reduce(function (m, wObj) { return Math.max(m, wObj.word.length); }, 0);
+
+          if (maxPendingLen > 0 && pickedCells.length >= maxPendingLen) {
+            updateStatusText('<span style="color:#dc2626;">"' + formed + '" no coincide · Reiniciando selección...</span>');
             setTimeout(function () {
-              currentPreview = [];
+              pickedCells = [];
               paintGrid();
-            }, 500);
+              updateStatusText();
+            }, 450);
+          } else {
+            updateStatusText();
           }
         });
       });
 
       document.getElementById('sopa-clear-sel').addEventListener('click', function () {
-        startIdx = null;
-        currentPreview = [];
-        statusEl.textContent = 'Selecciona la primera letra...';
+        pickedCells = [];
         paintGrid();
+        updateStatusText();
       });
 
       document.getElementById('sopa-reset-all').addEventListener('click', function () {
-        startIdx = null;
-        currentPreview = [];
+        pickedCells = [];
         foundWords = new Set();
         foundCells = new Set();
         hideMsg();
-        statusEl.textContent = 'Selecciona la primera letra...';
         canvas.querySelectorAll('[data-tword]').forEach(function (pill) {
           pill.classList.remove('active-green');
           pill.textContent = pill.getAttribute('data-tword');
         });
         paintGrid();
+        updateStatusText();
       });
       return;
     }
