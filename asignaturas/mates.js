@@ -9,6 +9,20 @@ window.ASIGNATURAS_MODULOS.mates = {
   desc: 'Cálculo, tablas y problemas',
   bg: 'bg-mates',
 
+  videos: [
+    {
+      id: 'tYpC44N7mOo',
+      label: '✖️ Tablas del 2 al 9',
+      title: 'Tablas de multiplicar del 2 al 9',
+      blockKey: 'dobles'
+    },
+    {
+      id: 'LC1MIdvwQEs',
+      label: '🎤 Rap de las tablas',
+      title: 'Rap de las tablas de multiplicar'
+    }
+  ],
+
   // Fichas de repaso con botón Ocultar/Ver
   studyTitle: '🧮 Repaso de Mates (Trucos, Dobles y Medidas)',
   studyBlocks: {
@@ -16,6 +30,7 @@ window.ASIGNATURAS_MODULOS.mates = {
       label: '✖️ Dobles y Triples',
       title: '✖️ Dobles (×2) y Triples (×3)',
       practiceMode: 'multiplicar',
+      videoId: 'tYpC44N7mOo',
       items: [
         { es: 'El doble de 6 (6 × 2)', va: '12' },
         { es: 'El doble de 8 (8 × 2)', va: '16' },
