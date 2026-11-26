@@ -45,6 +45,18 @@ window.ASIGNATURAS_VIDEOS = {
       label: "🗓️ Mesos de l'any",
       title: "Cançó dels mesos de l'any en valencià",
       blockKey: 'meses'
+    },
+    {
+      id: 'QQeEqk_rVic',
+      label: "🌸 Estacions de l'any",
+      title: "Cançó de les estacions de l'any en valencià",
+      blockKey: 'meses'
+    },
+    {
+      id: 'gx82Ls3P_k8',
+      label: '🏷️ Els articles',
+      title: 'Els ARTICLES | gramàtica | vídeos educatius',
+      blockKey: 'articles'
     }
   ]
 };
