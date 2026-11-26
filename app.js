@@ -1049,6 +1049,3 @@ document.addEventListener('DOMContentLoaded', function () {
   bindEvents();
   openWelcomeIfNeeded();
 });
-```[cite: 4]
-
-Sube este `app.js` y el `asignaturas/valencia.js` con el array `videos` a GitHub, espera a que actualice la web y entra en el repaso de **Valencià** para comprobar que aparecen los dos botones de canciones y el reproductor debajo. ¿Te carga bien el vídeo al abrirlo?
