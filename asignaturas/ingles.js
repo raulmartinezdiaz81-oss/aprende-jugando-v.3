@@ -9,6 +9,19 @@ window.ASIGNATURAS_MODULOS.ingles = {
   desc: 'Vocabulary, grammar & numbers',
   bg: 'bg-ingles',
 
+  videos: [
+    {
+      id: 'pnOxR7gwePY',
+      label: '📅 Days of the week',
+      title: 'Days of the week song in English'
+    },
+    {
+      id: 'd2Dn0q-WP98',
+      label: '🗓️ Months of the year',
+      title: 'Months of the year song in English'
+    }
+  ],
+
   studyTitle: '🇬🇧 Repaso de Inglés (English ↔ Español)',
   studyBlocks: {
     verbs: {
