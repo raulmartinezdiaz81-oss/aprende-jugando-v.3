@@ -126,11 +126,11 @@
         <button type="button" class="hero-mode-card" id="card-quick-games" style="background: linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 100%); color: #2e1065;">
           <div class="hero-top">
             <div class="hero-emoji">🎮</div>
-            <span class="hero-pill">Próximamente</span>
+            <span class="hero-pill">10 Minijuegos</span>
           </div>
           <div>
             <h2 class="hero-title">Juegos Educativos</h2>
-            <p class="hero-desc">Espacio preparado para minijuegos interactivos de repaso.</p>
+            <p class="hero-desc">Tablas, memory, sopa de letras, intruso, escalera de cálculo y más retos.</p>
           </div>
         </button>
       </div>
@@ -405,6 +405,27 @@
         </div>
       </div>
     </section>
+
+    <!-- =================================================================== -->
+    <!-- VISTA 8: JUEGOS EDUCATIVOS (MODULAR EN asignaturas/juegos.js)      -->
+    <!-- =================================================================== -->
+    <section id="view-games" class="view">
+      <div class="card" style="display:flex; flex-direction:column; gap:14px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+          <div>
+            <h2 id="games-view-title" style="margin:0; font-size:1.15rem; font-weight:900;">🎮 Juegos Educativos</h2>
+            <p id="games-view-subtitle" style="margin:2px 0 0; color:var(--muted); font-size:0.82rem; font-weight:700;">Elige un minijuego y suma puntos a tu perfil</p>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button type="button" class="mode-btn" id="btn-games-back-menu" style="display:none;">🎮 Todos los juegos</button>
+            <button type="button" class="mode-btn" id="btn-games-back-home">🏠 Volver a Inicio</button>
+          </div>
+        </div>
+
+        <div id="games-menu-grid" class="subjects-grid"></div>
+        <div id="game-stage-container" style="display:none;"></div>
+      </div>
+    </section>
   </div>
 
   <!-- ===================================================================== -->
@@ -480,11 +501,12 @@
   <div class="toast" id="toast">Mensaje</div>
 
   <!-- ===================================================================== -->
-  <!-- CARGA MODULAR DE LAS 10 ASIGNATURAS + VÍDEOS + MOTOR DE LA APP       -->
+  <!-- CARGA MODULAR DE LAS 10 ASIGNATURAS + VÍDEOS + JUEGOS + MOTOR       -->
   <!-- ===================================================================== -->
   <script>
     window.ASIGNATURAS_MODULOS = {};
     window.ASIGNATURAS_VIDEOS = {};
+    window.JUEGOS_EDUCATIVOS = [];
     window.APP_UTILS = {
       randInt: function (min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -516,6 +538,7 @@
   <script src="asignaturas/efisica.js"></script>
   <script src="asignaturas/religion.js"></script>
   <script src="asignaturas/videos.js"></script>
+  <script src="asignaturas/juegos.js"></script>
   <script src="app.js"></script>
 
   <script>
