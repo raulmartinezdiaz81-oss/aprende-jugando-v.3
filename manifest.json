@@ -1,1 +1,24 @@
+{
+  "name": "Aprende Jugando · 3º Primaria",
+  "short_name": "AprendeJugando",
+  "description": "Repaso y juegos educativos de 3º de Primaria para practicar asignaturas y vocabulario.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b1020",
+  "theme_color": "#00f2ff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
 
