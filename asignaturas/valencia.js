@@ -1,7 +1,7 @@
 /* =========================================================================
    ASIGNATURA: VALENCIÀ (asignaturas/valencia.js)
-   - Incluye todos los bloques de Repaso (Castellano ↔ Valencià),
-     canciones de apoyo y las preguntas.
+   - Módulo de 3º de Primaria: vocabulario, ortografía, gramática,
+     polisemia, comprensión lectora y cultura valenciana.
    ========================================================================= */
 window.ASIGNATURAS_MODULOS.valencia = {
   id: 'valencia',
@@ -10,28 +10,12 @@ window.ASIGNATURAS_MODULOS.valencia = {
   desc: 'Días, meses, repaso y test',
   bg: 'bg-valencia',
 
-  videos: [
-    {
-      id: 'duWaCE8-gVc',
-      label: '📅 Dies de la setmana',
-      title: 'Cançó dels dies de la setmana en valencià',
-      blockKey: 'dias'
-    },
-    {
-      id: 'gglETdwHdkw',
-      label: "🗓️ Mesos de l'any",
-      title: "Cançó dels mesos de l'any en valencià",
-      blockKey: 'meses'
-    }
-  ],
-
   studyTitle: '🍊 Repaso de Valencià (Castellano ↔ Valencià)',
   studyBlocks: {
     dias: {
       label: '📅 Días semana',
       title: '📅 Días de la semana (Els dies de la setmana)',
       practiceMode: 'dias',
-      videoId: 'duWaCE8-gVc',
       items: [
         { es: 'Lunes', va: 'dilluns' },
         { es: 'Martes', va: 'dimarts' },
@@ -49,7 +33,6 @@ window.ASIGNATURAS_MODULOS.valencia = {
       label: '🗓️ Meses del año',
       title: "🗓️ Meses del año (Els mesos de l'any)",
       practiceMode: 'meses',
-      videoId: 'gglETdwHdkw',
       items: [
         { es: 'Enero', va: 'gener' },
         { es: 'Febrero', va: 'febrer' },
@@ -163,6 +146,21 @@ window.ASIGNATURAS_MODULOS.valencia = {
         { es: 'Hormiga (so g + a)', va: 'la formiga' }
       ]
     },
+    familia: {
+      label: '👨‍👩‍👧‍👦 Família i casa',
+      title: '👨‍👩‍👧‍👦 La família i les parts de la casa',
+      practiceMode: 'vocab',
+      items: [
+        { es: 'El padre / La madre', va: 'el pare / la mare' },
+        { es: 'El hermano / La hermana', va: 'el germà / la germana' },
+        { es: 'El abuelo / La abuela', va: 'l’avi / l’àvia' },
+        { es: 'La cocina / El comedor', va: 'la cuina / el menjador' },
+        { es: 'La habitación / El baño', va: "l'habitació / el bany" },
+        { es: 'El balcón / La terraza', va: 'el balcó / la terrassa' },
+        { es: 'La puerta / La ventana', va: 'la porta / la finestra' },
+        { es: 'La silla / La cama', va: 'la cadira / el llit' }
+      ]
+    },
     cultura: {
       label: '🎆 Festes i lectura',
       title: '🎆 Festes populars i La formiga Piga',
@@ -193,6 +191,7 @@ window.ASIGNATURAS_MODULOS.valencia = {
         { q: 'Com es diu "Lunes" en valencià?', ok: 'dilluns', bad: ['dimarts', 'dimecres', 'dijous'], e: 'Lunes en valencià és "dilluns".' },
         { q: 'Com es diu "Miércoles" en valencià?', ok: 'dimecres', bad: ['dimarts', 'dijous', 'divendres'], e: 'Miércoles en valencià és "dimecres".' },
         { q: 'Quin dia ve després de "dijous"?', ok: 'divendres', bad: ['dimecres', 'dissabte', 'dilluns'], e: 'Després de dijous (jueves) ve divendres (viernes).' },
+        { q: 'Quin dia va abans de "dimecres"?', ok: 'dimarts', bad: ['dilluns', 'dijous', 'divendres'], e: 'Abans de dimecres (miércoles) ve dimarts (martes).' },
         { q: 'Com es diu "Sábado" en valencià?', ok: 'dissabte', bad: ['diumenge', 'divendres', 'dimarts'], e: "Sábado s'escriu amb doble s: \"dissabte\"." },
         { q: 'Com es diu "Domingo" en valencià?', ok: 'diumenge', bad: ['dissabte', 'dilluns', 'dijous'], e: 'Domingo en valencià és "diumenge".' },
         { q: 'Què significa "ahir" en castellà?', ok: 'Ayer', bad: ['Hoy', 'Mañana', 'Ahora'], e: '"Ahir" és ayer, "avui" és hoy i "demà" és mañana.' },
@@ -254,7 +253,8 @@ window.ASIGNATURAS_MODULOS.valencia = {
         { q: 'Què significa "llibreta" en castellà?', ok: 'Libreta / cuaderno', bad: ['Lápiz', 'Goma', 'Estuche'], e: 'La llibreta és el cuaderno.' },
         { q: 'Com diem "Buenos días" en valencià?', ok: 'Bon dia', bad: ['Bona nit', 'Bona vesprada', 'Fins demà'], e: 'Pel matí diem "Bon dia".' },
         { q: 'Què és "l’estoig"?', ok: 'El estuche', bad: ['La mochila', 'La pizarra', 'El libro'], e: "L'estoig és el estuche." },
-        { q: 'Quin número és "trenta-quatre"?', ok: '34', bad: ['43', '24', '14'], e: 'Trenta (30) i quatre (4) = 34.' }
+        { q: 'Quin número és "trenta-quatre"?', ok: '34', bad: ['43', '24', '14'], e: 'Trenta (30) i quatre (4) = 34.' },
+        { q: 'Com es diu "la cocina" en valencià?', ok: 'la cuina', bad: ['la cadira', 'la porta', 'el llit'], e: 'La cocina en valencià és "la cuina".' }
       ];
       const v = pick(vocab);
       const opts = shuffle([v.ok, v.bad[0], v.bad[1], v.bad[2]]);
