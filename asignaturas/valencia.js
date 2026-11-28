@@ -65,36 +65,45 @@ window.ASIGNATURAS_MODULOS.valencia = {
     },
     articles: {
       label: '🏷️ Artículos',
-      title: '🏷️ Artículos y apóstrofo (Els articles)',
+      title: '🏷️ Artículos definidos e indefinidos (Els articles)',
       practiceMode: 'articles',
       items: [
-        { es: 'El perro (masc. sing.)', va: 'el gos' },
-        { es: 'La mesa (fem. sing.)', va: 'la taula' },
-        { es: 'La escuela (vocal → l’)', va: "l'escola" },
-        { es: 'El árbol (vocal → l’)', va: "l'arbre" },
-        { es: 'El agua (vocal → l’)', va: "l'aigua" },
-        { es: 'El hombre (h muda → l’)', va: "l'home" },
-        { es: 'Los libros (masc. plural)', va: 'els llibres' },
-        { es: 'Las ventanas (fem. plural)', va: 'les finestres' },
-        { es: 'Un / Una', va: 'un / una' },
-        { es: 'Unos / Unas', va: 'uns / unes' }
+        { es: 'El perro / El baloncesto / El cepillo', va: 'el gos / el bàsquet / el raspall' },
+        { es: 'La cena / La cama (masc. en val.)', va: 'el sopar / el llit' },
+        { es: 'La mesa / La trompeta / La televisión', va: 'la taula / la trompeta / la televisió' },
+        { es: 'La escuela / La esgrima (vocal → l’)', va: "l'escola / l'esgrima" },
+        { es: 'El árbol / El agua / El amigo (vocal → l’)', va: "l'arbre / l'aigua / l'amic" },
+        { es: 'El desayuno / El hombre (vocal / h → l’)', va: "l'esmorzar / l'home" },
+        { es: 'Los libros / Los deberes / Los tamboriles', va: 'els llibres / els deures / els tabalets' },
+        { es: 'Las ventanas / Las guitarras', va: 'les finestres / les guitarres' },
+        { es: 'Una hoja / Una regla (masc. en val.)', va: 'un full / un regle' },
+        { es: 'Un lápiz / Un estuche / Un bolígrafo', va: 'un llapis / un estoig / un bolígraf' },
+        { es: 'Una tiza / Un borrador / Un cajón', va: 'un clarió / un borrador / un calaix' },
+        { es: 'Un rotulador / Un ratón', va: 'un retolador / un ratolí' },
+        { es: 'Un patio / Un gimnasio / Un comedor', va: 'un pati / un gimnàs / un menjador' },
+        { es: 'Una mochila / Una libreta / Una silla', va: 'una motxilla / una llibreta / una cadira' },
+        { es: 'Una papelera / Una puerta / Una estantería', va: 'una paperera / una porta / una prestatgeria' },
+        { es: 'Un / Una · Unos / Unas', va: 'un / una · uns / unes' }
       ]
     },
     escola: {
-      label: '🎒 Escuela',
-      title: "🎒 Vocabulario de clase (L'escola)",
+      label: '🎒 Material escolar',
+      title: "🎒 Material escolar y clase (L'escola)",
       practiceMode: 'vocab',
       items: [
         { es: 'El colegio', va: 'el col·legi / l’escola' },
-        { es: 'El libro', va: 'el llibre' },
-        { es: 'La libreta / cuaderno', va: 'la llibreta' },
-        { es: 'El lápiz', va: 'el llapis' },
-        { es: 'La goma', va: 'la goma' },
-        { es: 'El estuche', va: "l'estoig" },
-        { es: 'La mochila', va: 'la motxilla' },
-        { es: 'La pizarra', va: 'la pissarra' },
-        { es: 'Las tijeras', va: 'les tisores' },
-        { es: 'El recreo / patio', va: 'el pati' }
+        { es: 'Fichero / Agenda / Carpeta', va: 'fitxer / agenda / carpeta' },
+        { es: 'Sacapuntas / Goma de borrar', va: "maquineta / goma d'esborrar" },
+        { es: 'Bolígrafo / Lápiz / Rotulador', va: 'bolígraf / llapis / retolador' },
+        { es: 'Color / Estuche', va: 'color / estoig' },
+        { es: 'Hoja / Libreta / Cuaderno', va: 'full / llibreta / quadern' },
+        { es: 'Libro / Diccionario', va: 'llibre / diccionari' },
+        { es: 'Celo / Pegamento / Tijeras', va: 'rotllo adhesiu / pegament / tisores' },
+        { es: 'Mochila / Regla', va: 'motxilla / regle' },
+        { es: 'Pizarra / Tiza / Borrador', va: 'pissarra / clarió / borrador' },
+        { es: 'Mesa / Silla / Cajón / Estantería', va: 'taula / cadira / calaix / prestatgeria' },
+        { es: 'Papelera / Ratón', va: 'paperera / ratolí' },
+        { es: 'Recreo (patio) / Gimnasio / Comedor', va: 'pati / gimnàs / menjador' }
       ]
     },
     saludos: {
@@ -226,21 +235,41 @@ window.ASIGNATURAS_MODULOS.valencia = {
 
     if (mode === 'articles') {
       const nouns = [
-        { noun: 'escola', art: "l'", expl: "Davant de vocal o h en singular s'apostrofa: l'escola." },
-        { noun: 'arbre', art: "l'", expl: '"Arbre" comença per vocal i és singular: l\'arbre.' },
-        { noun: 'taula', art: 'la', expl: '"Taula" és femení singular i comença per consonant: la taula.' },
-        { noun: 'gos', art: 'el', expl: '"Gos" és masculí singular i comença per consonant: el gos.' },
-        { noun: 'llibres', art: 'els', expl: '"Llibres" és masculí plural: els llibres.' },
-        { noun: 'finestres', art: 'les', expl: '"Finestres" és femení plural: les finestres.' },
-        { noun: 'home', art: "l'", expl: '"Home" comença per h muda en singular: l\'home.' },
-        { noun: 'aigua', art: "l'", expl: "Aigua comença per vocal i s'apostrofa: l'aigua." }
+        { q: 'Tria l’article definit correcte per a: "___ escola"', ok: "l'", bad: ['el', 'la', 'els'], expl: "Davant de vocal o h en singular s'apostrofa: l'escola." },
+        { q: 'Tria l’article definit correcte per a: "___ arbre"', ok: "l'", bad: ['el', 'la', 'els'], expl: '"Arbre" comença per vocal i és singular: l\'arbre.' },
+        { q: 'Tria l’article definit correcte per a: "___ taula"', ok: 'la', bad: ['el', "l'", 'les'], expl: '"Taula" és femení singular i comença per consonant: la taula.' },
+        { q: 'Tria l’article definit correcte per a: "___ gos"', ok: 'el', bad: ['la', "l'", 'els'], expl: '"Gos" és masculí singular i comença per consonant: el gos.' },
+        { q: 'Tria l’article definit correcte per a: "___ llibres"', ok: 'els', bad: ['les', 'el', 'la'], expl: '"Llibres" és masculí plural: els llibres.' },
+        { q: 'Tria l’article definit correcte per a: "___ finestres"', ok: 'les', bad: ['els', 'la', 'el'], expl: '"Finestres" és femení plural: les finestres.' },
+        { q: 'Tria l’article definit correcte per a: "___ home"', ok: "l'", bad: ['el', 'la', 'els'], expl: '"Home" comença per h muda en singular: l\'home.' },
+        { q: 'Tria l’article definit correcte per a: "___ aigua"', ok: "l'", bad: ['el', 'la', 'les'], expl: "Aigua comença per vocal i s'apostrofa: l'aigua." },
+        { q: 'Tria l’article definit correcte per a: "___ bàsquet"', ok: 'el', bad: ['la', "l'", 'els'], expl: '"Bàsquet" és masculí singular: el bàsquet.' },
+        { q: 'Tria l’article definit correcte per a: "___ esgrima"', ok: "l'", bad: ['el', 'la', 'les'], expl: "S'apostrofa perquè comença per vocal: l'esgrima." },
+        { q: 'Tria l’article definit correcte per a: "___ tabalets"', ok: 'els', bad: ['les', 'el', 'la'], expl: '"Tabalets" és masculí plural: els tabalets.' },
+        { q: 'Tria l’article definit correcte per a: "___ trompeta"', ok: 'la', bad: ['el', "l'", 'les'], expl: '"Trompeta" és femení singular: la trompeta.' },
+        { q: 'Tria l’article definit correcte per a: "___ televisió"', ok: 'la', bad: ['el', "l'", 'les'], expl: '"Televisió" és femení singular: la televisió.' },
+        { q: 'Tria l’article definit correcte per a: "___ guitarres"', ok: 'les', bad: ['els', 'la', 'el'], expl: '"Guitarres" és femení plural: les guitarres.' },
+        { q: 'Tria l’article definit correcte per a: "___ sopar" (la cena)', ok: 'el', bad: ['la', "l'", 'els'], expl: '"Sopar" és masculí en valencià: el sopar.' },
+        { q: 'Tria l’article definit correcte per a: "___ deures"', ok: 'els', bad: ['les', 'el', 'la'], expl: '"Deures" és masculí plural: els deures.' },
+        { q: 'Tria l’article definit correcte per a: "___ raspall"', ok: 'el', bad: ['la', "l'", 'els'], expl: '"Raspall" és masculí singular: el raspall.' },
+        { q: 'Tria l’article definit correcte per a: "___ esmorzar"', ok: "l'", bad: ['el', 'la', 'els'], expl: "S'apostrofa perquè comença per vocal: l'esmorzar." },
+        { q: 'Tria l’article definit correcte per a: "___ llit" (la cama)', ok: 'el', bad: ['la', "l'", 'les'], expl: '"Llit" és masculí en valencià: el llit.' },
+        { q: 'Tria l’article definit correcte per a: "___ amic"', ok: "l'", bad: ['el', 'la', 'els'], expl: "S'apostrofa perquè comença per vocal: l'amic." },
+        { q: 'Tria l’article indefinit correcte per a: "___ full" (una hoja)', ok: 'un', bad: ['una', 'uns', 'unes'], expl: 'Atenció al gènere: "full" és masculí en valencià (un full).' },
+        { q: 'Tria l’article indefinit correcte per a: "___ regle" (una regla)', ok: 'un', bad: ['una', 'uns', 'unes'], expl: 'Atenció al gènere: "regle" és masculí en valencià (un regle).' },
+        { q: 'Tria l’article indefinit correcte per a: "___ clarió" (una tiza)', ok: 'un', bad: ['una', 'uns', 'unes'], expl: '"Clarió" és masculí en valencià: un clarió.' },
+        { q: 'Tria l’article indefinit correcte per a: "___ paperera"', ok: 'una', bad: ['un', 'uns', 'unes'], expl: '"Paperera" és femení singular: una paperera.' },
+        { q: 'Tria l’article indefinit correcte per a: "___ prestatgeria"', ok: 'una', bad: ['un', 'uns', 'unes'], expl: '"Prestatgeria" és femení singular: una prestatgeria.' },
+        { q: 'Tria l’article indefinit correcte per a: "___ estoig"', ok: 'un', bad: ['una', 'uns', 'unes'], expl: '"Estoig" és masculí singular: un estoig.' },
+        { q: 'Tria l’article indefinit correcte per a: "___ motxilla"', ok: 'una', bad: ['un', 'uns', 'unes'], expl: '"Motxilla" és femení singular: una motxilla.' },
+        { q: 'Tria l’article indefinit correcte per a: "___ calaix"', ok: 'un', bad: ['una', 'uns', 'unes'], expl: '"Calaix" és masculí singular: un calaix.' }
       ];
       const it = pick(nouns);
-      const opts = ['el', 'la', "l'", 'els'];
+      const opts = shuffle([it.ok, it.bad[0], it.bad[1], it.bad[2]]);
       return {
         subject: 'valencia', type: 'choice', topic: "Articles i apòstrof",
-        q: 'Tria l’article correcte per a: "___ ' + it.noun + '"',
-        options: opts, answer: opts.indexOf(it.art), explanation: it.expl
+        q: it.q,
+        options: opts, answer: opts.indexOf(it.ok), explanation: it.expl
       };
     }
 
@@ -254,7 +283,17 @@ window.ASIGNATURAS_MODULOS.valencia = {
         { q: 'Com diem "Buenos días" en valencià?', ok: 'Bon dia', bad: ['Bona nit', 'Bona vesprada', 'Fins demà'], e: 'Pel matí diem "Bon dia".' },
         { q: 'Què és "l’estoig"?', ok: 'El estuche', bad: ['La mochila', 'La pizarra', 'El libro'], e: "L'estoig és el estuche." },
         { q: 'Quin número és "trenta-quatre"?', ok: '34', bad: ['43', '24', '14'], e: 'Trenta (30) i quatre (4) = 34.' },
-        { q: 'Com es diu "la cocina" en valencià?', ok: 'la cuina', bad: ['la cadira', 'la porta', 'el llit'], e: 'La cocina en valencià és "la cuina".' }
+        { q: 'Com es diu "la cocina" en valencià?', ok: 'la cuina', bad: ['la cadira', 'la porta', 'el llit'], e: 'La cocina en valencià és "la cuina".' },
+        { q: 'Com es diu "sacapuntas" en valencià?', ok: 'maquineta', bad: ['retolador', 'fitxer', 'borrador'], e: '"Sacapuntas" en valencià és "maquineta".' },
+        { q: 'Com es diu "celo" (cinta adhesiva) en valencià?', ok: 'rotllo adhesiu', bad: ['pegament', 'tisores', 'regle'], e: '"Celo" en valencià és "rotllo adhesiu".' },
+        { q: 'Com es diu "tiza" en valencià?', ok: 'clarió', bad: ['full', 'calaix', 'fitxer'], e: '"Tiza" en valencià és "clarió".' },
+        { q: 'Com es diu "hoja" (de papel) en valencià?', ok: 'full', bad: ['quadern', 'carpeta', 'llibre'], e: 'Una hoja de papel es "un full".' },
+        { q: 'Com es diu "rotulador" en valencià?', ok: 'retolador', bad: ['bolígraf', 'llapis', 'maquineta'], e: '"Rotulador" en valencià és "retolador".' },
+        { q: 'Com es diu "estantería" en valencià?', ok: 'prestatgeria', bad: ['paperera', 'calaix', 'taula'], e: '"Estantería" en valencià és "prestatgeria".' },
+        { q: 'Com es diu "cajón" en valencià?', ok: 'calaix', bad: ['ratolí', 'gimnàs', 'menjador'], e: '"Cajón" en valencià és "calaix".' },
+        { q: 'Com es diu "diccionario" en valencià?', ok: 'diccionari', bad: ['llibre', 'quadern', 'fitxer'], e: '"Diccionario" en valencià és "diccionari".' },
+        { q: 'Com es diu "fichero" en valencià?', ok: 'fitxer', bad: ['carpeta', 'agenda', 'quadern'], e: '"Fichero" en valencià és "fitxer".' },
+        { q: 'Com es diu "goma de borrar" en valencià?', ok: "goma d'esborrar", bad: ['maquineta', 'pegament', 'borrador'], e: '"Goma de borrar" en valencià és "goma d\'esborrar".' }
       ];
       const v = pick(vocab);
       const opts = shuffle([v.ok, v.bad[0], v.bad[1], v.bad[2]]);
